@@ -16,16 +16,36 @@ void Token::show() {
     std::string literal;
 
     for(token_t token: tokens) {
-        literal = [&]() -> std::string {
-            switch(token.type) {
-                case TOKEN::NUMBER: return "Number";
-                case TOKEN::SYMBOL: return "Symbol";
-                case TOKEN::END:    return "End";
-                default: puts("error"); return "";
-            }
-        }();
+        switch(token.type) {
+            case TOKEN::NUMBER: literal = "Number"; break;
+            case TOKEN::SYMBOL: literal = "Symbol"; break;
+            case TOKEN::END:    literal = "End"; break;
+            default: puts("error"); break;
+        }
 
         std::cout << literal << "( " << token.value << " )" << std::endl;
     }
 }
 
+bool Token::is(std::string val) {
+    return tokens[pos].value == val;
+}
+
+bool Token::istype(TOKEN ty) {
+    return tokens[pos].type == ty;
+}
+
+bool Token::expect(std::string val) {
+    if(tokens[pos].value == val) return true;
+    else
+        fprintf(stderr, "error: %s expected", val.c_str());
+    return false;
+}
+
+token_t Token::get_step() {
+    return tokens[pos++];
+}
+
+void Token::step() {
+    pos++;
+}

@@ -20,12 +20,8 @@ Token Lexer::run(std::string src) {
 
             token.push_symbol(value);
         }
-        else if(isblank(src[i])) {
-            continue;
-        }
-        else if(src[i] == '\n') {
-            continue;
-        }
+        else if(isblank(src[i])) continue;
+        else if(src[i] == '\n')  continue;
         else {
             fprintf(stderr, "invalid syntax: \" %c \"", src[i]);
             //exit(1);
