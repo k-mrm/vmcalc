@@ -59,3 +59,21 @@ AST *Parser::expr_primary() {
 AST *Parser::expr_num(token_t tk) {
     return new Node_number(atoi(tk.value.c_str()));
 }
+
+void Parser::show(AST *ast) {
+    switch(ast->get_ndtype()) {
+        case NODE::NUMBER: {
+            auto n = (Node_number *)ast;
+            printf("%d ", n->value);
+        } break;
+        case NODE::BINARY: {
+            auto b = (Node_binary *)ast;
+            printf("(");
+            printf("%s ", b->op.c_str());
+            show(b->left);
+            show(b->right);
+            printf(")");
+        } break;
+        default: puts("error");
+    }
+}

@@ -9,4 +9,8 @@ int main(int argc, char **argv) {
     Lexer lexer;
     token = lexer.run(src);
     token.show();
+    Parser parser;
+    AST *ast;
+    ast = parser.run(token);
+    parser.show(ast); puts("");
 }
