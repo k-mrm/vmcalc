@@ -16,12 +16,7 @@ Token Lexer::run(std::string src) {
         }
         else if(src[i] == '+' || src[i] == '-' || src[i] == '*' || src[i] == '/' ||
                 src[i] == '(' || src[i] == ')') {
-            std::string value;
-            value = src[i];
-            if(src[i + 1] == '=') {
-                i++;
-                value += src[i];
-            }
+            std::string value{src[i]};
 
             token.push_symbol(value);
         }
