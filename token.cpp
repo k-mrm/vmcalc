@@ -36,7 +36,10 @@ bool Token::istype(TOKEN ty) {
 }
 
 bool Token::expect(std::string val) {
-    if(tokens[pos].value == val) return true;
+    if(tokens[pos].value == val) {
+        step();
+        return true;
+    }
     else
         fprintf(stderr, "error: %s expected", val.c_str());
     return false;

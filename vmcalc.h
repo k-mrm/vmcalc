@@ -93,31 +93,29 @@ enum class OPCODE {
     SUB,
     MUL,
     DIV,
-    MOD,
-    PRINT,
-    PRINTLN,
 };
 
 struct vmcode_t {
     OPCODE type;
     int value;
-    std::string name;
 
     vmcode_t(OPCODE t): type(t) {}
     vmcode_t(OPCODE t, int v): type(t), value(v) {}
-    vmcode_t(OPCODE t, std::string n): type(t), name(n) {}
 };
 
 class VMcode {
     public:
-        void generate();
-        std::vector<vmcode_t> vmcodes;
+        void generate(AST *);
+        std::vector<vmcode_t> codes;
         void show();
+    private:
+        void emit_number(AST *);
+        void emit_binary(AST *);
 };
 
 class VM {
     public:
-        void run(std::vector<vmcode_t>);
+        int run(std::vector<vmcode_t>);
         void exec(vmcode_t);
     private:
         std::stack<int> vmstack;

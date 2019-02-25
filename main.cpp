@@ -13,4 +13,9 @@ int main(int argc, char **argv) {
     AST *ast;
     ast = parser.run(token);
     parser.show(ast); puts("");
+    VMcode vmcode;
+    vmcode.generate(ast);
+    VM vm;
+    int stacktop = vm.run(vmcode.codes);
+    printf("%d\n", stacktop);
 }
