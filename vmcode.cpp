@@ -1,12 +1,14 @@
 #include "vmcalc.h"
 
-void VMcode::generate(AST *ast) {
+std::vector<vmcode_t> VMcode::compile(AST *ast) {
     switch(ast->get_ndtype()) {
         case NODE::NUMBER:
             emit_number(ast); break;
         case NODE::BINARY:
             emit_binary(ast); break;
     }
+
+    return codes;
 }
 
 void VMcode::emit_number(AST *ast) {
@@ -17,8 +19,8 @@ void VMcode::emit_number(AST *ast) {
 void VMcode::emit_binary(AST *ast) {
     auto b = (Node_binary *)ast;
 
-    generate(b->left);
-    generate(b->right);
+    compile(b->left);
+    compile(b->right);
 
     if(b->op == "+") {
         codes.push_back(vmcode_t(OPCODE::ADD)); return;

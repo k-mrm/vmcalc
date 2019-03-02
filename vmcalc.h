@@ -88,7 +88,6 @@ class Parser {
 
 enum class OPCODE {
     PUSH,
-    POP,
     ADD,
     SUB,
     MUL,
@@ -105,7 +104,7 @@ struct vmcode_t {
 
 class VMcode {
     public:
-        void generate(AST *);
+        std::vector<vmcode_t> compile(AST *);
         std::vector<vmcode_t> codes;
         void show();
     private:
