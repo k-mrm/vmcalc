@@ -12,8 +12,7 @@ int VM::run(std::vector<vmcode_t> vmcodes) {
 void VM::exec(vmcode_t c) {
     switch(c.type) {
         case OPCODE::PUSH: {
-            int a = c.value;
-            vmstack.push(a);
+            vmstack.push(c.value);
         } break;
         case OPCODE::ADD: {
             int r = vmstack.top(); vmstack.pop();
